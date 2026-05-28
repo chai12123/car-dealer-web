@@ -516,8 +516,8 @@ export default function App() {
           />
         )}
         
-        {/* Extra dark overlay to adjust contrast to ~55-65% dark */}
-        <div className="absolute inset-0 bg-black/57" />
+        {/* Extra dark overlay to adjust contrast to ~55-65% dark (reduced opacity by 75% for custom bright background look) */}
+        <div className="absolute inset-0 bg-black/15" />
         
         {/* Cinematic Red studio linear overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-carbon-black via-carbon-black/60 to-transparent" />
