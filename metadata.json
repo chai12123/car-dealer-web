@@ -1,0 +1,6 @@
+{
+  "name": "APEX Auto Gallery",
+  "description": "Premium European Used-Car Dealership in Thailand featuring a high-quality inventory and admin panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

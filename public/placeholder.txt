@@ -1,0 +1,1 @@
+This folder is for serving local assets like images and videos. Place your hero-video.mp4 and car image files here.

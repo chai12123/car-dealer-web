@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&family=Saira:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans Thai", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Rajdhani", "Saira", sans-serif;
+  --color-carbon-black: #0E0E10;
+  --color-card-dark: #1A1A1E;
+  --color-racing-red: #E11D2A;
+  --color-text-grey: #A1A1AA;
+  --color-text-near-white: #F5F5F5;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--color-carbon-black);
+  color: var(--color-text-near-white);
+}
+
+/* Ensure smooth Thai vowel rendering and avoid clipping of vowels */
+body {
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0E0E10;
+}
+::-webkit-scrollbar-thumb {
+  background: #2A2A30;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E11D2A;
+}
+
+/* Base Thai Typography Rules */
+p, .thai-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.7;
+  color: #A1A1AA;
+}
+
+h1, h2, h3, h4, h5, h6, .thai-heading {
+  font-family: var(--font-sans);
+  font-weight: 600 !important;
+  letter-spacing: -0.015em;
+  line-height: 1.35 !important;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+}
+
+/* Sports Latin text fallback to Rajdhani/Saira only for logo and marked English overlays */
+.font-display, 
+.display-text,
+.logo-font {
+  font-family: var(--font-display) !important;
+}
+
+/* Glow effects */
+.hover-glow {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-glow:hover {
+  box-shadow: 0 0 25px rgba(225, 29, 42, 0.28);
+  border-color: rgba(225, 29, 42, 0.4);
+  transform: translateY(-4px);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(225, 29, 42, 0.55);
+}
+
+/* Infinite radial red pulse animation (spotlight bg) */
+@keyframes radial-glow-pulse {
+  0%, 100% {
+    opacity: 0.12;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+  50% {
+    opacity: 0.22;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+.pulse-glow-anim {
+  animation: radial-glow-pulse 8s ease-in-out infinite;
+}
+
+.glow-bg {
+  position: relative;
+}
+.glow-bg::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(225, 29, 42, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- CINEMATIC ANIMATIONS --- */
+
+/* 1. Ken Burns background zoom */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.ken-burns-bg {
+  animation: ken-burns 22s ease-in-out infinite;
+}
+
+/* 2. Hero load staggered fade slide-up */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-stagger {
+  opacity: 0;
+  animation: hero-fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-delay-1 { animation-delay: 80ms; }
+.hero-delay-2 { animation-delay: 200ms; }
+.hero-delay-3 { animation-delay: 320ms; }
+.hero-delay-4 { animation-delay: 440ms; }
+
+/* 3. Button Shine Sweep Effect */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 30%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  transition: none;
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  left: 140%;
+  transition: left 0.9s ease-in-out;
+}
+.btn-shine:active {
+  transform: scale(0.96) !important;
+}
+
+/* 4. IntersectionObserver-based Scroll Reveal */
+.reveal-container .reveal-item {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-container.is-visible .reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered load sequences for grid cells */
+.reveal-container.is-visible .reveal-item:nth-child(1) { transition-delay: 80ms; }
+.reveal-container.is-visible .reveal-item:nth-child(2) { transition-delay: 160ms; }
+.reveal-container.is-visible .reveal-item:nth-child(3) { transition-delay: 240ms; }
+.reveal-container.is-visible .reveal-item:nth-child(4) { transition-delay: 320ms; }
+.reveal-container.is-visible .reveal-item:nth-child(5) { transition-delay: 400ms; }
+.reveal-container.is-visible .reveal-item:nth-child(6) { transition-delay: 480ms; }
+.reveal-container.is-visible .reveal-item:nth-child(7) { transition-delay: 560ms; }
+.reveal-container.is-visible .reveal-item:nth-child(8) { transition-delay: 640ms; }
+
+/* 5. Inventory Card Hover zoom + glow */
+.inventory-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.inventory-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 12px 30px rgba(225, 29, 42, 0.28) !important;
+  border-color: rgba(225, 29, 42, 0.4) !important;
+}
+.inventory-card img {
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.inventory-card:hover img {
+  transform: scale(1.06) !important;
+}
+
+/* 6. Process Timeline Node Pop-in */
+@keyframes pop-node {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.pop-node-anim {
+  opacity: 0;
+}
+.timeline-visible .pop-node-anim {
+  animation: pop-node 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.node-delay-1 { animation-delay: 100ms; }
+.node-delay-2 { animation-delay: 300ms; }
+.node-delay-3 { animation-delay: 500ms; }
+.node-delay-4 { animation-delay: 700ms; }
+
+/* 7. Modal Scale + Backdrop Blur Entry */
+@keyframes fade-backdrop {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+@keyframes scale-modal {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.modal-backdrop-anim {
+  animation: fade-backdrop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.modal-container-anim {
+  animation: scale-modal 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 8. Thin Red Divider Line width animation */
+.divider-line {
+  width: 0;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.is-visible .divider-line {
+  width: 4rem; /* translates to w-16 */
+}
+
+/* Respect user prefers-reduced-motion specifications */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  .ken-burns-bg {
+    animation: none !important;
+  }
+  .btn-shine::after {
+    display: none !important;
+  }
+}
+
